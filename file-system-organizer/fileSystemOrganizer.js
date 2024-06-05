@@ -1,8 +1,6 @@
-// Import necessary modules
 import fs from "fs";
 import path from "path";
 
-// Function to organize files
 function organizeFiles(directory) {
   fs.readdir(
     directory,
@@ -36,5 +34,4 @@ function organizeFiles(directory) {
   );
 }
 
-// Export the function
 export { organizeFiles };
