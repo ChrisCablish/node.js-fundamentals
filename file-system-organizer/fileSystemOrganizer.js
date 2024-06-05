@@ -37,13 +37,21 @@ fs.readdir(
         const newFilePath = path.join(extDirectory, file.name);
 
         //move the file(s) to new extension specific directory using fs.rename
-        fs.rename(oldFilePath, newFilePath, (err) => {
-          if (err) {
-            console.error(`Failed to move file: ${file.name}`, err);
-            return;
-          }
-          console.log(`Moved ${file.name} to ${extDirectory}/`);
-        });
+
+        if (fs.existsSync(newFilePath)) {
+          console.warn(`File ${newFilePath} already exists. Skipping move.`);
+        } else {
+          fs.rename(oldFilePath, newFilePath, (err) => {
+            if (err) {
+              console.error(
+                `Failed to move file: ${file.name} from ${oldFilePath} to ${newFilePath}`,
+                err
+              );
+              return;
+            }
+            console.log(`Moved ${file.name} to ${extDirectory}/`);
+          });
+        }
       }
     });
   }
